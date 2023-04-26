@@ -1,6 +1,6 @@
 package ie.tudublin;
 
-
+// The Follow class represents a word that follows another word in the Markov chain model
 public class Follow {
     public String word;
     public int count;

@@ -15,6 +15,7 @@ public class DANI extends PApplet {
         // fullScreen(SPAN);
     }
 
+	// Declaring a String array to store the sonnet
 	public String[] sonnet;
 
     public void setup() {
@@ -33,17 +34,16 @@ public class DANI extends PApplet {
         textSize(20);
         textAlign(CENTER, CENTER);
 
+		// If the sonnet exists, display it on the screen
         if (sonnet != null) {
             // display the sonnet on the screen
             float x = width / 2;
             float y = height / 3;
+			// Looping through the sonnet and displaying each line
             for (int i = 0; i < sonnet.length; i++) {
                 text(sonnet[i], x, y);
                 y += 25;
             }
-        } else {
-            // display prompt to press space to generate a new sonnet
-            text("Press SPACE to generate a new sonnet", width / 2, height / 2);
         }
     }
 
@@ -54,11 +54,13 @@ public class DANI extends PApplet {
 		}
 	}	
 
-	//loading the file
+	// The loadFile method that reads a text file and constructs a model of the words and their frequencies
     public void loadFile(String filename) {
         String[] lines = loadStrings(filename);
+		// Looping through each line in the file.
         for (String line : lines) {
             String[] words = split(line, ' ');
+			 // Looping through each word in the line
             for (int i = 0; i < words.length; i++) {
                 String w = words[i].toLowerCase().replaceAll("[^\\w\\s]", "");
                 if (w.equals("")) {
@@ -109,11 +111,15 @@ public class DANI extends PApplet {
 	//generating a sonnet
     public String[] writeSonnet() {
         String[] sonnet = new String[14];
+		// Looping through each line of the sonnet
         for (int i = 0; i < 14; i++) {
+			// Selecting a random word from the model
             Word word = model.get(random.nextInt(model.size()));
             String sentence = word.getWord();
+			// Looping through each word of the sentence
             for (int j = 0; j < 7; j++) {
                 Follow follow = null;
+				// Checking if the word has any follow up words
                 if (word.getFollows().size() > 0) {
                     int total = 0;
                     for (Follow f : word.getFollows()) {
@@ -121,6 +127,7 @@ public class DANI extends PApplet {
                     }
                     int rand = random.nextInt(total);
                     int count = 0;
+					// Counting the total number of occurrences of all the follow up words of the current word
                     for (Follow f : word.getFollows()) {
                         count += f.getCount();
                         if (count > rand) {
@@ -132,6 +139,7 @@ public class DANI extends PApplet {
                 if (follow == null) {
                     break;
                 }
+				//create sentence
                 sentence += " " + follow.getWord();
                 word = findWord(follow.getWord());
             }
