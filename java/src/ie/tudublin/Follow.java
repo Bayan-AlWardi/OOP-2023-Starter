@@ -1,5 +1,6 @@
 package ie.tudublin;
 
+
 public class Follow {
     public String word;
     public int count;

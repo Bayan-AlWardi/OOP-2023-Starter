@@ -36,7 +36,7 @@ public class DANI extends PApplet {
         if (sonnet != null) {
             // display the sonnet on the screen
             float x = width / 2;
-            float y = height / 2;
+            float y = height / 3;
             for (int i = 0; i < sonnet.length; i++) {
                 text(sonnet[i], x, y);
                 y += 25;
@@ -47,12 +47,14 @@ public class DANI extends PApplet {
         }
     }
 
+	//pressing the space bar to generate a new sonnet
     public void keyPressed() {
 		if (key == ' ') {
 			sonnet = writeSonnet();
 		}
 	}	
 
+	//loading the file
     public void loadFile(String filename) {
         String[] lines = loadStrings(filename);
         for (String line : lines) {
@@ -77,6 +79,7 @@ public class DANI extends PApplet {
         }
     }
 
+	//find the word
     public Word findWord(String str) {
         for (Word word : model) {
             if (word.getWord().equals(str)) {
@@ -86,12 +89,14 @@ public class DANI extends PApplet {
         return null;
     }
 
+	//printing the model 
     public void printModel() {
         for (Word word : model) {
             println(word.toString());
         }
     }
 
+	//find the follow up word
     public Follow findFollow(Word word, String str) {
         for (Follow follow : word.getFollows()) {
             if (follow.getWord().equals(str)) {
@@ -101,6 +106,7 @@ public class DANI extends PApplet {
         return null;
     }
 
+	//generating a sonnet
     public String[] writeSonnet() {
         String[] sonnet = new String[14];
         for (int i = 0; i < 14; i++) {
