@@ -47,6 +47,11 @@ public class DANI extends PApplet {
         }
     }
 
+    public void keyPressed() {
+		if (key == ' ') {
+			sonnet = writeSonnet();
+		}
+	}	
 
     public void loadFile(String filename) {
         String[] lines = loadStrings(filename);
